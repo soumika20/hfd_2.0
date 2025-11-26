@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "4293306151",
+    "firebase_url": "https://hfd1-946b8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hfd1-946b8",
+    "storage_bucket": "hfd1-946b8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4293306151:android:ecd2c216c512036c856b02",
+        "android_client_info": {
+          "package_name": "com.hfd.team_13.hfd_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkRMNIXuY73I-7nuY9gFmtE4xCProgzXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4293306151:android:aad447769d8dee47856b02",
+        "android_client_info": {
+          "package_name": "hfd.team_13.hfd_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkRMNIXuY73I-7nuY9gFmtE4xCProgzXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

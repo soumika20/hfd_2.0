@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">hfd_2.0</string>
+    <string name="title_activity_main">hfd_2.0</string>
+    <string name="package_name">com.hfd.team_13.hfd_2</string>
+    <string name="custom_url_scheme">com.hfd.team_13.hfd_2</string>
+</resources>

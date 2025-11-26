@@ -1,0 +1,57 @@
+!pip install transformers pillow accelerate --quiet
+
+from transformers import BlipProcessor, BlipForConditionalGeneration, AutoTokenizer, AutoModelForSeq2SeqLM
+from PIL import Image
+import torch
+
+# 1. Specify image path
+image_path = "path.jpg"  # <-- image path
+image = Image.open(image_path).convert("RGB")
+print("Image loaded from:", image_path)
+
+# 2. Load BLIP (image caption)
+blip_model_id = "Salesforce/blip-image-captioning-large"
+processor_blip = BlipProcessor.from_pretrained(blip_model_id)
+model_blip = BlipForConditionalGeneration.from_pretrained(
+    blip_model_id,
+    torch_dtype=torch.float16,
+    device_map="auto"
+)
+
+pixel_values = processor_blip(images=image, return_tensors="pt").pixel_values.to(model_blip.device)
+
+caption_ids = model_blip.generate(pixel_values=pixel_values, max_new_tokens=80)
+caption = processor_blip.decode(caption_ids[0], skip_special_tokens=True)
+print("\nCaption:\n", caption)
+
+# 3. Load LLM (Flan-T5) for structured summary
+llm_model_id = "google/flan-t5-large"  # public, fast
+tokenizer_llm = AutoTokenizer.from_pretrained(llm_model_id)
+model_llm = AutoModelForSeq2SeqLM.from_pretrained(
+    llm_model_id,
+    torch_dtype=torch.float16,
+    device_map="auto"
+)
+
+# 4. Prompt for structured emergency summary
+prompt = f"""
+The following is a description of an accident scene:
+
+"{caption}"
+
+Write a brief structured emergency summary including:
+
+1. Type of accident
+2. Visible injuries
+3. Severity level (Low / Moderate / High / Critical)
+4. Immediate risks
+5. Essential first-aid steps
+
+"""
+
+inputs_llm = tokenizer_llm(prompt, return_tensors="pt").to(model_llm.device)
+summary_ids = model_llm.generate(**inputs_llm, max_new_tokens=200)
+summary = tokenizer_llm.decode(summary_ids[0], skip_special_tokens=True)
+
+print("\nEmergency Scene Summary:\n")
+print(summary)

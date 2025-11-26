@@ -1,0 +1,11 @@
+{
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "asia-south1",
+    "rules": "firestore.stores",
+    "indexes": "firestore.indexes.json"
+  }
+}
